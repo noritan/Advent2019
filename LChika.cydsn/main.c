@@ -1,25 +1,22 @@
 /* ========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright noritan.org, 2019
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
  * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * WHICH IS THE PROPERTY OF noritan.org.
  *
  * ========================================
 */
 #include "project.h"
 
-int main(void)
-{
+int main(void) {
     CyGlobalIntEnable; /* Enable global interrupts. */
 
-    /* Place your initialization/startup code here (e.g. MyInst_Start()) */
-
-    for(;;)
-    {
-        /* Place your application code here. */
+    for (;;) {
+        CyDelay(500L);
+        Pin_LED_Write(!Pin_LED_Read());
     }
 }
 
