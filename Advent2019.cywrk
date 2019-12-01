@@ -3,7 +3,7 @@
 <!--This file is machine generated and read. It is not intended to be edited by hand.-->
 <!--Due to this, there is no schema for this file.-->
 <CyGuid_2867d519-54d2-4c01-9830-c51cb08bc3dd type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize" version="5" xml_contents_version="3" name="Advent2019" persistent="Advent2019.cywrk" platform="NOT_USED">
-<current_project name=".\BLChika.cydsn\BLChika.cyprj" />
+<current_project name=".\ShowPressure.cydsn\ShowPressure.cyprj" />
 <wrkspc_folders />
 <files />
 <projects>
@@ -11,6 +11,7 @@
 <v>.\BLChika.cydsn\BLChika.cyprj</v>
 <v>.\LCDShow.cydsn\LCDShow.cyprj</v>
 <v>.\GroveLibrary.cylib\GroveLibrary.cyprj</v>
+<v>.\ShowPressure.cydsn\ShowPressure.cyprj</v>
 </projects>
 <workspace_id v="d857dc6e-b898-4cff-9550-6b05b093368c" />
 <WriteAppVersionLastSavedWith v="4.2.0.641" />
@@ -19,9 +20,7 @@
 <wrkspc_dependencies />
 </CyGuid_dcbd9771-0334-43dc-9cc3-fe99dc3c5316>
 <CyGuid_63b68103-67f5-4406-8da6-5c8625765b82 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize+CyIgnoredSystemDepsList" version="1">
-<wrkspc_dependencies>
-<wrkspc_dependency project="BLChika.cydsn\BLChika.cyprj" dependency="..\..\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj" />
-</wrkspc_dependencies>
+<wrkspc_dependencies />
 </CyGuid_63b68103-67f5-4406-8da6-5c8625765b82>
 </CyGuid_2867d519-54d2-4c01-9830-c51cb08bc3dd>
 </CyXmlSerializer>
