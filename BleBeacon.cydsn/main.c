@@ -40,31 +40,9 @@ uint8   tick = 0;
 
 // ステートマシンイベントフラグ
 uint32  wdt_Flag = 0;
-uint32  measured = 0;
 
-// 500msごとに Advertisement パケットを開始・停止する
+// 500msごとに周期割り込みをかける
 void Wdt_Callback(void) {
-    if (initialized && measured) {
-        // 初期化された & 測定された
-        if (tick == 0) {
-            // 最初の500msで Advertisement パケットを送信する
-            
-            // Major フィールドの設定
-            cyBle_discoveryData.advData[ID_OFFSET] = f_id;
-            
-            // Minor フィールドの設定
-            cyBle_discoveryData.advData[TEMP_OFFSET] = f_temp;
-            cyBle_discoveryData.advData[HUM_OFFSET] = f_hum;
-
-            // Advertisement パケットの送信を開始する
-            CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
-            tick = 1;
-        } else {
-            // 次の500msで Advertisement ポケットの送信を止める
-            CyBle_GappStopAdvertisement();
-            tick = 0;
-        }
-    }
     wdt_Flag = 1u;
 }
 
@@ -82,10 +60,13 @@ void StackEventHandler(uint32 event, void *eventParam) {
     }
 }
 
+// ステートマシンの状態コード
 enum StateCode {
     ST_INIT = 0,
     ST_FORCE,
     ST_CALCULATE,
+    ST_SEND,
+    ST_STOP,
     ST_SHOW
 };
 
@@ -121,32 +102,52 @@ int main(void) {
     CYASSERT(apiResult == CYBLE_ERROR_OK);
 
     for(;;) {
-        // I2C device state machine
+        // ステートマシンのディスパッチャは500msごとに動作する
         if (wdt_Flag) {
             wdt_Flag = 0;
+
+            // ステートマシン
             switch (state) {
                 case ST_INIT:
-                    state = ST_FORCE;
+                    // BLEシステムの初期化待ち
+                    if (initialized) {
+                        state = ST_FORCE;
+                    }
                     break;
                 case ST_FORCE:
+                    // 温度と気圧の測定開始
                     I2C_SENSOR_Force();
                     state = ST_CALCULATE;
                     break;
                 case ST_CALCULATE:
+                    // 温度と気圧を計算する
                     I2C_SENSOR_ReadRawData();
                     temp = I2C_SENSOR_GetTemperature();
                     pressure = I2C_SENSOR_GetPressure();
-                    {
-                        uint32 status;
-                        status = CyEnterCriticalSection();
-                        f_temp = (uint8)(temp / 40.0f * (TEMP_40 - TEMP_ZERO)) + TEMP_ZERO;
-                        f_hum = (uint8)((pressure - 950.0) / 50.0 * (HUM_50 - HUM_ZERO)) + HUM_ZERO;
-                        measured = 1;
-                        CyExitCriticalSection(status);
-                    }
+                    f_temp = (uint8)(temp / 40.0f * (TEMP_40 - TEMP_ZERO)) + TEMP_ZERO;
+                    f_hum = (uint8)((pressure - 950.0) / 50.0 * (HUM_50 - HUM_ZERO)) + HUM_ZERO;
+                    state = ST_SEND;
+                    break;
+                case ST_SEND:
+                    // Major フィールドの設定
+                    cyBle_discoveryData.advData[ID_OFFSET] = f_id;
+                    
+                    // Minor フィールドの設定
+                    cyBle_discoveryData.advData[TEMP_OFFSET] = f_temp;
+                    cyBle_discoveryData.advData[HUM_OFFSET] = f_hum;
+
+                    // Advertisement パケットの送信を開始する
+                    CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
+                    
+                    state = ST_STOP;
+                    break;
+                case ST_STOP:                
+                    // Advertisement パケットの送信を止める
+                    CyBle_GappStopAdvertisement();
                     state = ST_SHOW;
                     break;
                 case ST_SHOW:
+                    // 温度と気圧をLCDに表示する
                     sprintf(sbuf, "T:%7.2fdegC", temp);
                     I2C_LCD_Position(0, 0x80);  // locate to 0,0
                     I2C_LCD_PrintString(sbuf);
