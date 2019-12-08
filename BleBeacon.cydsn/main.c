@@ -24,8 +24,11 @@
 #define     TEMP_40         (126u)  // 40℃相当の値
 
 // Minor フィールドの最小・最大値
-#define     HUM_ZERO        (13u)    //  0%相当の値
+#define     HUM_ZERO        (13u)   //  0%相当の値
 #define     HUM_50          (114u)  // 50%相当の値
+
+// BLE パケット送信周期
+#define     PACKET_PERIOD   (14)    // 1.5s * 14 = 21s
 
 // Major/Minor フィールドの値
 uint8   f_temp = TEMP_ZERO;         // Minor:tempフィールドの値
@@ -126,7 +129,13 @@ int main(void) {
                     pressure = I2C_SENSOR_GetPressure();
                     f_temp = (uint8)(temp / 40.0f * (TEMP_40 - TEMP_ZERO)) + TEMP_ZERO;
                     f_hum = (uint8)((pressure - 950.0) / 50.0 * (HUM_50 - HUM_ZERO)) + HUM_ZERO;
-                    state = ST_SEND;
+                    // パケットはPACKET_PERIODごとに送信される
+                    if (++tick >= PACKET_PERIOD) {
+                        tick = 0;
+                        state = ST_SEND;
+                    } else {
+                        state = ST_SHOW;
+                    }
                     break;
                 case ST_SEND:
                     // Major フィールドの設定
