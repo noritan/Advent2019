@@ -13,7 +13,7 @@ slide: false
 もう半年以上も前になりますが、[スイッチサイエンス][Switch Science]さんで[Seeed Studio]さんが作っている[**Grove**][Grove]の[スターターキット][Grove Starter Kit]を買いました。
 **Arduino**準拠のハードウェアなので、きっと手持ちの評価ボードで簡単に使えるだろうという安易な気持ちからでした。
 
-![Grove Starter Kit](./GroveStarterKit.jpeg)
+![Grove Starter Kit](./images/GroveStarterKit.jpeg "Grove Starter Kit")
 
 今年の一連の記事は、このスターターキットを[**CY8CKIT-042-BLE-A Bluetooth Low Energy Pioneer Kit**][CY8CKIT-042-BLE-A]で使ってみます。
 
@@ -38,22 +38,22 @@ slide: false
 
 [**CY8CKIT-042-BLE-A**][CY8CKIT-042-BLE-A]には、**Arduino**準拠コネクタが搭載されています。
 
-![CY8CKIT-042-BLE-A](./CY8CKIT-042-BLE-A.png)
+![CY8CKIT-042-BLE-A](./images/CY8CKIT-042-BLE-A.png "CY8CKIT-042-BLE-A")
 
 一方、[スターターキット][Grove Starter Kit]には、[**Grove**][Grove]コネクタが満載された[**Base Shield V2**][Base Shield V2]が入っていました。
 
-![Base Shield V2](./BaseShieldV2.jpeg)
+![Base Shield V2](./images/BaseShieldV2.jpeg "Base Shield V2")
 
 これを使えば、[**CY8CKIT-042-BLE-A**][CY8CKIT-042-BLE-A]でも[**Grove**][Grove]が使えるようになります。
 
 あとは、[**Grove LED**][Grove LED]というボードにLEDを載せて[**Base Shield V2**][Base Shield V2]に接続したら準備完了です。
 あぁ、このキットには、赤青緑の三色のLEDが入っているけれど、[**Grove LED**][Grove LED]ボードは一つしか入っていないのですね。
 
-![Grove LED](./GroveLed.jpeg)
+![Grove LED](./images/GroveLed.jpeg "Grove LED")
 
 ところで、[**Base Shield V2**][Base Shield V2]の沢山あるコネクタのどれに接続したらいいんでしょう？
 
-![DSC_2251A.JPG](./DSC_2251A.JPG)
+![DSC_2251A.JPG](./images/DSC_2251A.JPG "接続先コネクタ")
 
 [**Base Shield V2**][Base Shield V2]には、シルク印刷で、それぞれのコネクタがどの信号に接続されるかが分かるようになっています。
 
@@ -65,17 +65,22 @@ A0がP3[0]に、A1がP3[1]に電気的に接続されていて、それを何に
 このため、**PSoC**からP3[0]ピンを制御するとLEDが点滅します。
 
 
-## 回路図
+## プロジェクト - LChika
+
+では、プロジェクトを作成しましょう。
+
+
+### 回路図
 
 プロジェクトでまず必要なのは、P3[0]を制御する方法を決める事です。
 このプロジェクトでは、純粋にソフトウェアで制御を行う事にして、P3[0]にソフトウェア制御可能なGPIO出力を接続します。
 
-![回路図](./schematic1.png)
+![回路図](./images/schematic1.png "回路図")
 
 端子の割り当てもお忘れなく。
 
 
-## ソフトウェア
+### ソフトウェア
 
 全てソフトウェアで制御することに決めたので、ソフトウェアディレイを使ったＬチカプログラムに仕立てました。
 
@@ -96,9 +101,6 @@ int main(void) {
 ビルドして書き込んだら、Ｌチカの出来上がりです。
 
 
-## GitHub リポジトリ
-* [GitHub Repository][repository]
-
 ## 関連サイト
 * [32-bit ArmR CortexR-M0 PSoCR 4][PSoC 4]
 * [PSoCR 4 BLE (Bluetooth Smart)][PSoC 4 BLE]
@@ -111,11 +113,11 @@ int main(void) {
 * [CY8CKIT-042-BLE-A で気圧を表示][GBarometer]
 * [CY8CKIT-042-BLE-A で気圧を送信][GBLE]
 
-[GLChika]:./chap1.md
-[GLCDShow]:./chap2.md
-[GBLChika]:./chap3.md
-[GBarometer]:./chap4.md
-[GBLE]:./chap5.md
+[GLChika]:./README-LChika-ja.md
+[GLCDShow]:./README-LCDSHOW-ja.md
+[GBLChika]:./README-BLChika-ja.md
+[GBarometer]:./README-Barometer.md
+[GBLE]:./README-BLE.md
 [PSoC Advent Calendar 2019]:https://qiita.com/advent-calendar/2019/psoc
 [Switch Science]:https://www.switch-science.com/
 [Seeed Studio]:https://www.seeedstudio.com/
