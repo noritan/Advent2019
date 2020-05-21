@@ -70,7 +70,7 @@ slide: false
 
 回路図は、必要なコンポーネントを並べただけです。
 
-![回路図](./schematic2.png)
+![回路図](./images/schematic2.png "回路図")
 
 この**Character LCD with I2C Interface**というコンポーネントは、**I2C Master**を操作してLCDコントローラと通信をするソフトウェアコンポーネントです。
 そのため、外付けの**I2C Master**コンポーネントが別途必要です。
@@ -163,7 +163,7 @@ int main(void) {
 
 とりあえず、[**PCF2119x**][PCF2119x]としては動いていないらしいので、"Custom format"設定を使って試してみました。
 
-![Custom format設定](./image/customFormatConfiguration.png "Custom format設定")
+![Custom format設定](./images/customFormatConfiguration.png "Custom format設定")
 
 ![ちょっと良くなった](./images/lcdDisplayBetter.jpeg "ちょっと良くなった")
 
