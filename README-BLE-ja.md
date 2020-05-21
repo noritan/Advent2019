@@ -12,7 +12,7 @@ slide: false
 今回は、取得した気圧データを**BLE**を使用して送信します。
 
 
-## BLEビーコン
+## BLEビーコンプロジェクト - BleBeacon
 
 **BLE**の使い方にビーコンというものがあります。
 これは、一方的に**BLE**のパケットを送信する装置です。
@@ -21,7 +21,7 @@ slide: false
 基本的なBLEビーコンは、[PSoC Advent Calendar 2016]の記事「[**BLE Beacon の初歩**][sonet BLE Beacon Basic]」で作成しましたので、今回もこの時の記事をもとに作成しています。
 回路図は、BLEコンポーネントが追加されただけです。
 
-![回路図](./schematic5.png)
+![回路図](./images/schematic5.png "回路図")
 
 
 ## メインループによる時間管理
@@ -139,7 +139,7 @@ BLEビーコンは温度と気圧の情報を送信してくれますが、こ�
 
 ## プロジェクトの完成
 
-![温度と気圧を表示](./showTempAndPressure.jpeg)
+![温度と気圧を表示](./images/showTempAndPressure.jpeg "温度と気圧を表示")
 
 プロジェクトを書き込んだら、LCDに温度と気圧が表示されます。
 前回の記事と同じ写真に見えるのは気のせいでしょう。
@@ -152,13 +152,11 @@ BLEビーコンは温度と気圧の情報を送信してくれますが、こ�
 **Cypress&reg; BLE-Beacon&trade;** で表示させました。
 このアプリには、グラフ表示をさせる機能もあるのですが、温度と気圧は頻繁に変わるものでもないため、リスト表示させました。
 
-![アプリの表示](./applicationDisplay.png)
+![アプリの表示](./images/applicationDisplay.png "アプリの表示")
 
 このように計算通り22秒ごとにパケットが送信されている様子がわかります。
 湿度が74%となっていますが、これは1024mBarに相当する値です。
 
-## GitHub リポジトリ
-* [GitHub Repository][repository]
 
 ## 関連サイト
 * [32-bit ArmR CortexR-M0 PSoCR 4][PSoC 4]
@@ -173,11 +171,11 @@ BLEビーコンは温度と気圧の情報を送信してくれますが、こ�
 * [CY8CKIT-042-BLE-A で気圧を表示][GBarometer]
 * [CY8CKIT-042-BLE-A で気圧を送信][GBLE]
 
-[GLChika]:./chap1.md
-[GLCDShow]:./chap2.md
-[GBLChika]:./chap3.md
-[GBarometer]:./chap4.md
-[GBLE]:./chap5.md
+[GLChika]:./README-LChika-ja.md
+[GLCDShow]:./README-LCDShow-ja.md
+[GBLChika]:./README-BLChika-ja.md
+[GBarometer]:./README-Barometer-ja.md
+[GBLE]:./README-BLE-ja.md
 [PSoC Advent Calendar 2019]:https://qiita.com/advent-calendar/2019/psoc
 [PSoC Advent Calendar 2016]:https://www.adventar.org/calendars/1796
 [Switch Science]:https://www.switch-science.com/
