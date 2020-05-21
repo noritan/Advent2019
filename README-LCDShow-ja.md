@@ -12,11 +12,11 @@ slide: false
 
 [前回の記事][GLChika]では、[**Grove**][Grove]の[スターターキット][Grove Starter Kit]に入っていた[**Grove LED**][Grove LED]というボードを使いました。
 
-![Grove Starter Kit](./GroveStarterKit.jpeg)
+![Grove Starter Kit](./images/GroveStarterKit.jpeg "Grove Starter Kit")
 
 [スターターキット][Grove Starter Kit]には、他のボードも入っています。その中で、一番大きいのが[**Grove LCD RGB Backlight**][Grove LCD RGB Backlight]です。
 
-![Grove LCD RGB Backlight](./GroveLcdRgbBacklight.jpeg)
+![Grove LCD RGB Backlight](./images/GroveLcdRgbBacklight.jpeg "Grove LCD RGB Backlight")
 
 良く見かけるパラレルバスのボードとは違って、これは**I2C**インターフェイスの表示器です。
 これなら、[**Grove**][Grove]の4ピンコネクタにぴったりです。
@@ -36,7 +36,7 @@ slide: false
 そのため、[**PSoC Creator**][PSoC Creator]と一緒にインストールされている[**Bridge Control Panel**][Bridge Control Panel]アプリケーションを使用して**I2C**のSlaveデバイスを直接操作することもできます。
 例えば、[**Bridge Control Panel**][Bridge Control Panel]の"List"ボタンをクリックすると、**I2C**バス上に接続されたSlaveデバイスの一覧が出てきます。
 
-![デバイス一覧](./DeviceList.png)
+![デバイス一覧](./images/DeviceList.png "デバイス一覧")
 
 これによると、[**Bridge Control Panel**][Bridge Control Panel]から三つのSlaveアドレスが見えていることがわかります。
 それぞれのアドレスは、以下のように使われています。
@@ -56,7 +56,7 @@ slide: false
 
 と悩んでいましたが、[**PSoC Creator**][PSoC Creator]が**Character LCD with I2C Interface**というコンポーネントを持っている事に気が付きました。
 
-![I2C LCD Configuration](./I2cLcdConfiguration.png)
+![I2C LCD Configuration](./images/I2cLcdConfiguration.png "I2C LCD Configuration")
 
 **Configuration Tool**を見てみると、"NXP PCF2119x + custom commands"というラジオボタンがありました。
 もしかしたら、この[**PCF2119x**][PCF2119x]というのがデファクトスタンダードで、このコマンド体系を使えばいけるんじゃね？
@@ -80,7 +80,7 @@ slide: false
 
 **I2C Master**の設定は、以下のようにしました。
 
-![I2C Masterの設定](./i2cMasterConfiguration.png)
+![I2C Masterの設定](./images/i2cMasterConfiguration.png "I2C Masterの設定")
 
 |項目|設定|概要|
 |:--|:--|:--|
@@ -89,7 +89,7 @@ slide: false
 
 別途、端子の割り当てが必要です。[**CY8CKIT-042-BLE-A**][CY8CKIT-042-BLE-A]では、以下の端子が**SCL**と**SDA**に接続されています。
 
-![I2CMの端子割り当て](./i2cmPinAssign.png)
+![I2CMの端子割り当て](./images/i2cmPinAssign.png "I2CMの端子割り当て")
 
 
 ### I2Cバスのプルアップは、どこ？
@@ -98,7 +98,7 @@ slide: false
 この実験でもプルアップ抵抗が必要になるはずなのですが、無くても動いてしまいます。
 これは、[**CY8CKIT-042-BLE-A**][CY8CKIT-042-BLE-A]ボード上に搭載されている[**KitProg**][KitProg]がプルアップ抵抗を付けてくれるためです。
 
-![プルアップ回路](./pullUpCircuit.png)
+![プルアップ回路](./images/pullUpCircuit.png "プルアップ回路")
 
 このため、他のポートを**I2C**バスに使用する場合や、**USB**コネクタ以外から電源を供給する場合には、プルアップ抵抗を追加しなくてはなりません。
 **I2C**バスを使用する場合には、一般的に注意が必要です。
@@ -108,7 +108,7 @@ slide: false
 
 **Character LCD with I2C Interface**の設定は、以下のようにしました。
 
-![LCDコントローラの設定](./lcdControllerConfiguration.png)
+![LCDコントローラの設定](./images/lcdControllerConfiguration.png "LCDコントローラの設定")
 
 |項目|設定|概要|
 |:--|:--|:--|
@@ -152,7 +152,7 @@ int main(void) {
 
 実行させてみましたが、うまく表示されませんでした。
 
-![うまく表示されない](lcdDisplayFailure.jpeg)
+![うまく表示されない](./images/lcdDisplayFailure.jpeg "うまく表示されない")
 
 フォントが間違っているうえに1行しか表示されていません。
 つまり、LCDコントローラが[**PCF2119x**][PCF2119x]ではないという事を意味しているのですね。
@@ -163,15 +163,15 @@ int main(void) {
 
 とりあえず、[**PCF2119x**][PCF2119x]としては動いていないらしいので、"Custom format"設定を使って試してみました。
 
-![custom format設定](./customFormatConfiguration.png)
+![Custom format設定](./image/customFormatConfiguration.png "Custom format設定")
 
-![ちょっと良くなった](./lcdDisplayBetter.jpeg)
+![ちょっと良くなった](./images/lcdDisplayBetter.jpeg "ちょっと良くなった")
 
 フォントの乱れは無くなりました。が、2行表示になりません。
 
 "Custom format"に設定すると、"Custom Command"タブにデフォルトのコマンド情報が入り、変更できるようになります。
 
-![Custom Commandタブ](./customCommandTab.png)
+![Custom Commandタブ](./images/customCommandTab.png "Custom Commandタブ")
 
 これらのコマンドを見ていて、"Set display for 2 lines and 16 characters"というコマンドを見つけました。設定値は、0x24となっています。
 これは、"Function_set"というコマンドで、[**PCF2119x**][PCF2119x]のデータシートでは以下のように書かれています。
@@ -201,16 +201,13 @@ F: フォントのドット数 0:5x8 1:5x10
 もし、このLCDコントローラのコマンド体系が **HD44780 (SC1602)** 同等だったとすると、0x24を送ると1-line, 5x10フォントという妙な設定になってしまいます。
 2行表示をしたいのであれば、0x28を送らなくてはなりません。コマンドを0x28に変更してみました。
 
-![コマンドの修正](./customCommandTabRevised.png)
+![コマンドの修正](./images/customCommandTabRevised.png "コマンドの修正")
 
-![思った通りの出力](./lcdDisplayExpected.jpeg)
+![思った通りの出力](./images/lcdDisplayExpected.jpeg "思った通りの出力")
 
 すると、思った通りの出力になりました。
 
 
-
-## GitHub リポジトリ
-* [GitHub Repository][repository]
 
 ## 関連サイト
 * [32-bit ArmR CortexR-M0 PSoCR 4][PSoC 4]
@@ -224,11 +221,11 @@ F: フォントのドット数 0:5x8 1:5x10
 * [CY8CKIT-042-BLE-A で気圧を表示][GBarometer]
 * [CY8CKIT-042-BLE-A で気圧を送信][GBLE]
 
-[GLChika]:./chap1.md
-[GLCDShow]:./chap2.md
-[GBLChika]:./chap3.md
-[GBarometer]:./chap4.md
-[GBLE]:./chap5.md
+[GLChika]:./README-LChika-ja.md
+[GLCDShow]:./README-LCDShow-ja.md
+[GBLChika]:./README-BLChika-ja.md
+[GBarometer]:./README-Barometer-ja.md
+[GBLE]:./README-BLE-ja.md
 [PSoC Advent Calendar 2019]:https://qiita.com/advent-calendar/2019/psoc
 [Switch Science]:https://www.switch-science.com/
 [Seeed Studio]:https://www.seeedstudio.com/
