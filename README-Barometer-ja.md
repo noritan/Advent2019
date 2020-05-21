@@ -13,29 +13,29 @@ slide: false
 つまり、**PSoC**からデータを送りつけてばかりだったわけです。
 今回は、これまた[スイッチサイエンス][Switch Science]で購入した[**絶対圧センサ評価モジュール**][ssci PSensor]からデータを取得して、[**Grove LCD RGB Backlight**][Grove LCD RGB Backlight]に表示します。
 
-![温度と気圧を表示](./showTempAndPressure.jpeg)
+![温度と気圧を表示](./images/showTempAndPressure.jpeg "温度と気圧を表示")
 
 
 ## 絶対圧センサ
 
-![絶対圧センサ](./absolutePressureModule.jpeg)
+![絶対圧センサ](./images/absolutePressureModule.jpeg "絶対圧センサ")
 
 [**絶対圧センサ評価モジュール**][ssci PSensor]とは、気圧を測定してくれるセンサを搭載した[**Grove**][Grove]コネクタ対応のボードです。
 この基板の上には、[OMRON]製の缶詰になった(canned)[**2SMPB-02E**][2SMPB-02E]という気圧センサとレギュレータなどが搭載されています。
 また、このセンサには、温度補償を行うための温度センサも内蔵しています。
 
 
-## 気圧センサコンポーネント
+## プロジェクト - ShowPressure
 
 これをどうやって操作するかと考えた結果、[前回の記事][GBLChika]と同じように、新たにコンポーネントを作成してしまう事にしました。
 
-![回路図](./schematic4.png)
+![回路図](./images/schematic4.png "回路図")
 
 **I2C Master**を操作するためのソフトウェアコンポーネントを作成しました。
 [前回の記事][GBLChika]と全く同じ考え方です。
 
 
-### API
+### 気圧センサコンポーネントの API
 このソフトウェア・コンポーネントには、以下の**API**を実装しました。
 
 |API|概要|
@@ -185,9 +185,6 @@ double I2C_SENSOR_GetPressure(void) {
 これ以外にも、補償計算に使用する係数を計算するためのAPI関数がありますが、ユーザに見えないところで処理されています。
 
 
-## GitHub リポジトリ
-* [GitHub Repository][repository]
-
 ## 関連サイト
 * [32-bit ArmR CortexR-M0 PSoCR 4][PSoC 4]
 * [PSoCR 4 BLE (Bluetooth Smart)][PSoC 4 BLE]
@@ -201,11 +198,11 @@ double I2C_SENSOR_GetPressure(void) {
 * [CY8CKIT-042-BLE-A で気圧を表示][GBarometer]
 * [CY8CKIT-042-BLE-A で気圧を送信][GBLE]
 
-[GLChika]:./chap1.md
-[GLCDShow]:./chap2.md
-[GBLChika]:./chap3.md
-[GBarometer]:./chap4.md
-[GBLE]:./chap5.md
+[GLChika]:./README-LChika-ja.md
+[GLCDShow]:./README-LCDShow-ja.md
+[GBLChika]:./README-BLChika-ja.md
+[GBarometer]:./README-Barometer-ja.md
+[GBLE]:./README-BLE-ja.md
 [PSoC Advent Calendar 2019]:https://qiita.com/advent-calendar/2019/psoc
 [Switch Science]:https://www.switch-science.com/
 [Seeed Studio]:https://www.seeedstudio.com/
