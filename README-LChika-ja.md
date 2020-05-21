@@ -116,8 +116,8 @@ int main(void) {
 [GLChika]:./README-LChika-ja.md
 [GLCDShow]:./README-LCDSHOW-ja.md
 [GBLChika]:./README-BLChika-ja.md
-[GBarometer]:./README-Barometer.md
-[GBLE]:./README-BLE.md
+[GBarometer]:./README-Barometer-ja.md
+[GBLE]:./README-BLE-ja.md
 [PSoC Advent Calendar 2019]:https://qiita.com/advent-calendar/2019/psoc
 [Switch Science]:https://www.switch-science.com/
 [Seeed Studio]:https://www.seeedstudio.com/
