@@ -12,7 +12,7 @@ slide: false
 
 [前回の記事][GLcdShow]では、[**Grove**][Grove]の[スターターキット][Grove Starter Kit]に入っていた[**Grove LCD RGB Backlight**][Grove LCD RGB Backlight]というボードを使いました。
 
-![Grove LCD RGB Backlight](./GroveLcdRgbBacklight.jpeg)
+![Grove LCD RGB Backlight](./images/GroveLcdRgbBacklight.jpeg "Grove LCD RGB Backlight")
 
 今回も、このボードを使って実験を行います。
 
@@ -25,7 +25,7 @@ slide: false
 
 で、基板を眺めていて、裏側に**I2C**バスに直接つながっているチップがいると気が付きました。
 
-![LEDドライバ](./ledDriverPhoto.jpeg)
+![LEDドライバ](./images/ledDriverPhoto.jpeg "LEDドライバ")
 
 この写真では全く見えませんが、マーキングの"9632"の文字を手掛かりに[**NXP**][NXP]の[**PCA9632**][PCA9632]というLEDドライバであるらしいことが分かりました。
 
@@ -53,7 +53,7 @@ slide: false
 今回は、[前回][GLcdShow]のプロジェクトを拡張して対応してみます。
 まず、回路図は、前回と同じです。
 
-![回路図](./schematic2.png)
+![回路図](./images/schematic2.png "回路図")
 
 LEDドライバを制御する便利なコンポーネントは存在しないので、すべてソフトウェアで操作します。
 ソフトウェアは、こんなになりました。
@@ -117,7 +117,7 @@ int main(void) {
 LCDディスプレイに文字を表示させてから、LEDドライバにコマンドを送り、 MODE1, LEDOUT, PWM の順にレジスタに値を書き込んでいきます。
 これで、バックライトがピンクに点灯します。
 
-![バックライト点灯](./lcdDisplayWithBacklight.jpeg)
+![バックライト点灯](./images/lcdDisplayWithBacklight.jpeg "バックライト点灯")
 
 **I2Cバス**にコマンドを送信する関数 SendBuffer() を定義しているので、多少はマシなはずですが、大したことやってるわけでもないのに、長いです。
 
@@ -129,14 +129,14 @@ LCDディスプレイに文字を表示させてから、LEDドライバにコ�
 
 ということで、コンポーネントを作っちゃいました。
 
-![PCA9632コンポーネントを追加](./schematic3.png)
+![PCA9632コンポーネントを追加](./images/schematic3.png "PCA9632コンポーネントを追加")
 
 このコンポーネントは、**Character LCD with I2C Interface**と同じように,
 指定された**I2C Master**を介して[**PCA9632**][PCA9632]を制御するソフトウェアコンポーネントです。
 
 ただし、凝った設定画面は作っていないので、かなり質素です。
 
-![質素な設定画面](./ledDriverConfiguration.png)
+![質素な設定画面](./images/ledDriverConfiguration.png "質素な設定画面")
 
 二つのパラメータ、Slaveアドレスと操作対象となる**I2C Master**コンポーネントのインスタンス名が設定されます。
 
@@ -189,8 +189,6 @@ int main(void) {
 "main.c"は、すっかり簡素になりました。
 このプログラムでも、コンポーネントを作成しない場合と同じようにピンク色になります。
 
-## GitHub リポジトリ
-* [GitHub Repository][repository]
 
 ## 関連サイト
 * [32-bit ArmR CortexR-M0 PSoCR 4][PSoC 4]
@@ -204,11 +202,11 @@ int main(void) {
 * [CY8CKIT-042-BLE-A で気圧を表示][GBarometer]
 * [CY8CKIT-042-BLE-A で気圧を送信][GBLE]
 
-[GLChika]:./chap1.md
-[GLCDShow]:./chap2.md
-[GBLChika]:./chap3.md
-[GBarometer]:./chap4.md
-[GBLE]:./chap5.md
+[GLChika]:./README-LChika-ja.md
+[GLCDShow]:./README-LCDShow-ja.md
+[GBLChika]:./README-BLChika-ja.md
+[GBarometer]:./README-Barometer-ja.md
+[GBLE]:./README-BLE-ja.md
 [PSoC Advent Calendar 2019]:https://qiita.com/advent-calendar/2019/psoc
 [Switch Science]:https://www.switch-science.com/
 [Seeed Studio]:https://www.seeedstudio.com/
