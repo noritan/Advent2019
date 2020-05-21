@@ -114,7 +114,7 @@ int main(void) {
 * [CY8CKIT-042-BLE-A で気圧を送信][GBLE]
 
 [GLChika]:./README-LChika-ja.md
-[GLCDShow]:./README-LCDSHOW-ja.md
+[GLCDShow]:./README-LCDShow-ja.md
 [GBLChika]:./README-BLChika-ja.md
 [GBarometer]:./README-Barometer-ja.md
 [GBLE]:./README-BLE-ja.md
